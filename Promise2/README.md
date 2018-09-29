@@ -1,4 +1,4 @@
-# 链式调用
+# 实现Promise的链式调用
 
 实现链式调用的关键就是then方法，首先物品们需要让它能够返回一个新的Promise对象，从而能够在这个返回的Promise对象上调用新的then方法，最终形成链式调用。
 
@@ -62,7 +62,6 @@ var myPromiseReject = new MyPromise((resolve,reject)=>{
 ```
 
 执行结果为：
-
 ```
 resolve:  I am resolved!
 resolve2:  I am also resolved!

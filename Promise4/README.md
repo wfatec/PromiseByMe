@@ -1,11 +1,8 @@
-# Promise传递
-
+# 传递Promise对象
 之前的Promise实现中还存在一个问题，若callback的返回值是一个promise对象，则会产生异常。因此接下来我们就需要对这种情况进行处理。
 
 ## isPromise
-
 在真正开始修改之前我们需要能够对promise对象进行判断，方法如下：
-
 ```js
 var isPromise = function(inst){
     return inst instanceof MyPromise
@@ -13,9 +10,7 @@ var isPromise = function(inst){
 ```
 
 ## 改造then方法
-
 当_callback返回值为promise时，我们不能直接将这个promise传入newPromise的resolve方法，因此尝试如下改造：
-
 ```js
  var callback = function(value){
     var valueReturnedByCallback = _callback(value);
@@ -29,9 +24,7 @@ var isPromise = function(inst){
     }
 }
 ```
-
 这样我们就成功获取到了valueReturnedByCallback中resolve的值，并触发newPromise.resolve方法，来测试一下：
-
 ```js
 var MyPromise = require('./Promise').MyPromise;
 var isPromise = require('./Promise').isPromise;
@@ -64,9 +57,7 @@ var myPromiseReject = new MyPromise((resolve,reject)=>{
 	console.log('reject2: ',err)
 });
 ```
-
 结果为：
-
 ```
 resolve:  I am resolved!
 resolve2:  I am new Promise!
@@ -74,7 +65,6 @@ resolve:  I am the last!
 reject:  I am rejected!
 reject2:  I am also rejected!
 ```
-
 测试结果完全符合预期。
 
 本节虽然改动不大，但却是实现promise传递的关键，希望大家好好体会！
